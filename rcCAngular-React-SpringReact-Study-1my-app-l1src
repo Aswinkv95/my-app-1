@@ -1,0 +1,23 @@
+[33mcommit 9c089ae1e562f81ba438f9ce7a58a5667ac30462[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature1[m[33m)[m
+Author: aswin <aswinkv95@gmail.com>
+Date:   Tue Mar 3 22:34:05 2026 +0530
+
+    experimental
+
+[33mcommit 1ec0162537aa12f51a2e2dfb149497cd44e6718b[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: aswin <aswinkv95@gmail.com>
+Date:   Tue Mar 3 21:09:48 2026 +0530
+
+    Added frontend as normal folder
+
+[33mcommit 4f68e44cba65d59d313e5706f869a08d29c6c335[m
+Author: aswin <aswinkv95@gmail.com>
+Date:   Tue Mar 3 21:09:16 2026 +0530
+
+    Removed submodule configuration
+
+[33mcommit 28aa37bee597b5f820668b5b795dcf93a60ff593[m
+Author: aswin <aswinkv95@gmail.com>
+Date:   Tue Mar 3 20:58:33 2026 +0530
+
+    Initial commit - Spring Boot + React project
