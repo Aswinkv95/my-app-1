@@ -5,7 +5,7 @@ export default function FileUpload() {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const networks = [
     "VISA_NETWORK",
     "MASTER_NETWORK",
@@ -53,7 +53,7 @@ export default function FileUpload() {
       formData.append("network", network);
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/file-upload`,
+        `${API_BASE_URL}/file-upload`,
         {
           method: "POST",
           body: formData,
@@ -63,7 +63,6 @@ export default function FileUpload() {
       if (!response.ok) {
         throw new Error("Upload failed");
       }
-
       setSuccess("File uploaded successfully.");
       setFile(null);
       setNetwork("");

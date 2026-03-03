@@ -7,6 +7,7 @@ export default function VisaException() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
       // Reset all section-related states whenever section changes
  // Reset form and table whenever this section mounts
@@ -52,7 +53,7 @@ export default function VisaException() {
     bodyParams.append("fromDate", from);
     bodyParams.append("toDate", to);
 
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/visa-exception`, {
+    const response = await fetch(`${API_BASE_URL}/visa-exception`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
