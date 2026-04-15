@@ -1,0 +1,103 @@
+--------------------------------------------------------------------------USER-----------------------------------------------------------------------
+CREATE TABLE users (
+    id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY,
+
+    -- Identity
+    email VARCHAR2(255 CHAR) NOT NULL,
+    username VARCHAR2(100 CHAR),
+    phone VARCHAR2(20 CHAR),
+
+    -- Authentication
+    password_hash VARCHAR2(255 CHAR) NOT NULL,
+
+    -- Status & Roles
+    role VARCHAR2(50 CHAR) DEFAULT 'USER' NOT NULL,
+    is_active NUMBER(1) DEFAULT 1 NOT NULL,
+    is_verified NUMBER(1) DEFAULT 0 NOT NULL,
+
+    -- Security Controls
+    failed_login_attempts NUMBER DEFAULT 0 NOT NULL,
+    last_failed_login_at TIMESTAMP,
+    locked_until TIMESTAMP,
+
+    -- Tracking
+    last_login_at TIMESTAMP,
+    last_login_ip VARCHAR2(45 CHAR),
+    password_changed_at TIMESTAMP,
+
+    -- Audit Fields
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP
+);
+
+ALTER TABLE users ADD CONSTRAINT uq_users_email UNIQUE (email);
+ALTER TABLE users ADD CONSTRAINT uq_users_username UNIQUE (username);
+ALTER TABLE users ADD CONSTRAINT uq_users_phone UNIQUE (phone);
+
+
+INSERT INTO users (
+    id,
+    email,
+    username,
+    phone,
+    password_hash,
+    role,
+    is_active,
+    is_verified,
+    failed_login_attempts,
+    last_failed_login_at,
+    locked_until,
+    last_login_at,
+    last_login_ip,
+    password_changed_at,
+    created_at,
+    updated_at,
+    deleted_at
+) VALUES (
+    SYS_GUID(),                   -- id
+    'john.doe@example.com',       -- email
+    'johndoe',                    -- username
+    '1234567890',                 -- phone
+    'hashed_password_here',       -- password_hash (bcrypt/argon2 recommended)
+    'USER',                       -- role
+    1,                            -- is_active
+    0,                            -- is_verified
+    0,                            -- failed_login_attempts
+    NULL,                         -- last_failed_login_at
+    NULL,                         -- locked_until
+    NULL,                         -- last_login_at
+    NULL,                         -- last_login_ip
+    NULL,                         -- password_changed_at
+    CURRENT_TIMESTAMP,            -- created_at
+    CURRENT_TIMESTAMP,            -- updated_at
+    NULL                          -- deleted_at
+);
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+create table visa_cbs (
+recon_id VARCHAR2(100),transaction_type VARCHAR2(100),transaction_date date ,
+tramsaction_amount VARCHAR2(20),db_cr_flag VARCHAR2(1),status VARCHAR2(50),filename VARCHAR2(50)
+
+);
+
+----------------------------------------------------------------------------------------------------------------
+CREATE TABLE links (
+    id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY, -- Unique link ID
+
+    title VARCHAR2(255 CHAR) NOT NULL,        -- Link name/title
+    url VARCHAR2(500 CHAR),                   -- Optional URL for the link
+    parent_id RAW(16),                        -- Self-reference for hierarchy (NULL if top-level)
+
+    -- Access Control
+    is_admin_only NUMBER(1) DEFAULT 0 NOT NULL, -- 1 = only admin, 0 = all users
+
+    -- Status
+    is_active NUMBER(1) DEFAULT 1 NOT NULL,
+
+    -- Audit Fields
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP
+);	
+
