@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  oracle-db-my-app:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: oracle-db-my-app
+    ports:
+      - "1523:1523"
+      - "5601:5601"
+    environment:
+      - ORACLE_PWD=Oracle2@1234
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    restart: unless-stopped
+
+  accounts:
+    build: .
+    container_name: accounts-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - oracle-db-my-app
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle-db:1521/FREEPDB1
+      - SPRING_DATASOURCE_USERNAME=system2
+      - SPRING_DATASOURCE_PASSWORD=Oracle@1234
+    restart: always
+
+volumes:
+  oracle-data:
