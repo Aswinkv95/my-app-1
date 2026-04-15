@@ -9,4 +9,4 @@ COPY target/my-app-l1-v1.jar my-app-l1-v1.jar
 EXPOSE 8090
 
 # Run the accounts
-ENTRYPOINT ["java","-jar","accounts-v1.jar"]
+ENTRYPOINT ["java","-jar","/my-app-l1-v1.jar"]
